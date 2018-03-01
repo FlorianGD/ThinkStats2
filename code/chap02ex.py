@@ -21,7 +21,12 @@ def Mode(hist):
 
     returns: value from Hist
     """
-    return 0
+    mode_freq = 0
+    for val, freq in hist.Items():
+        if freq > mode_freq:
+            mode_freq = freq
+            mode_val = val
+    return mode_val
 
 
 def AllModes(hist):
@@ -31,7 +36,13 @@ def AllModes(hist):
 
     returns: iterator of value-freq pairs
     """
-    return []
+    all_modes = []
+    _hist = hist.Copy()
+    while _hist:
+        mode = Mode(_hist)
+        all_modes.append((mode, _hist[mode]))
+        _hist.Remove(mode)
+    return all_modes
 
 
 def main(script):
